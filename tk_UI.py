@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import*
 from db import DB
+from kuCoin import KUCoin
  
 LARGEFONT =("Verdana", 35)
   
@@ -93,8 +94,14 @@ class StartPage(tk.Frame):
     def getVals(self):
         print("Submitting Form")
         currentResponse=str(self.balance_percent_value.get()) +"-"+self.pair_value.get()
-        label = ttk.Label(self, text=currentResponse, font=LARGEFONT)
+        balance_percent=self.balance_percent_value.get()
+        pair=self.pair_value.get()
+        kuCoinClient=KUCoin(balance_percent,pair)
+        response=kuCoinClient.create_market_order()
+
+        label = ttk.Label(self, text=response, font=LARGEFONT)
         label.grid(row=5,column=2)
+
   
           
   
@@ -155,13 +162,14 @@ class Page1(tk.Frame):
         print(
             f"{self.api_key_value.get(),self.api_pass_value.get(),self.api_secret_value.get()} ")
         currentResponse=self.api_pass_value.get()+"--"+self.api_key_value.get()+"--"+self.api_secret_value.get()
-        label = ttk.Label(self, text=currentResponse, font=LARGEFONT)
-        label.grid(row=5, column=2)
+        print(currentResponse)
         db = DB()
-        db.insert({"api_key":self.api_key_value.get(),
+        response=db.insertConfig({"api_key":self.api_key_value.get(),
                              "api_secret":self.api_secret_value.get(),
                              "api_pass":self.api_pass_value.get()
                              })
+        label = ttk.Label(self, text=response, font=LARGEFONT)
+        label.grid(row=5, column=2)
 
 
 # third window frame page2
@@ -202,11 +210,13 @@ class Page2(tk.Frame):
     def getvals(self):
         print("Submitting Form")
         currentResponse="Base Coin : "+self.coin_name_value.get()
-        label = ttk.Label(self, text=currentResponse, font=LARGEFONT)
-        label.grid(row=5, column=2)
+        print(currentResponse)
         db = DB()
-        db.insert({"base_coin": self.coin_name_value.get()
+
+        response=db.insertBaseCoin({"base_coin": self.coin_name_value.get()
                    })
+        label = ttk.Label(self, text=response, font=LARGEFONT)
+        label.grid(row=5, column=2)
 
 
   

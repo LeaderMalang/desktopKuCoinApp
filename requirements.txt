@@ -1,8 +1,14 @@
 appdirs==1.4.4
 blessed==1.18.0
+certifi==2020.12.5
+chardet==4.0.0
 flyingcircus==0.1.3.2
+idna==2.10
+python-kucoin==2.1.2
 pytk==0.0.2.1
 setuptools-scm==5.0.1
 six==1.15.0
 tinydb==4.4.0
+urllib3==1.26.3
 wcwidth==0.2.5
+websockets==8.1
