@@ -16,13 +16,13 @@ class KUCoin():
         db=DB()
 
         config=db.connection.all()
-        base_coin_query=db.searchBaseCoin("USDT")
+        
         self.api_key = config[0]['api_key']
         #api_secret = '2db4483e-2a76-4c2c-b533-f64a80a25c6d'
         self.api_secret = config[0]['api_secret']
         self.api_passphrase =config[0]['api_pass']
         #, sandbox=True
-        self.client = Client(self.api_key, self.api_secret, self.api_passphrase,sandbox=True)
+        self.client = Client(self.api_key, self.api_secret, self.api_passphrase)
 
         self.base_coin = config[1]['base_coin']
         self.balance_percent = balance_percent_value

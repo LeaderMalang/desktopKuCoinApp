@@ -8,19 +8,30 @@ class DB():
 
     def insertBaseCoin(self,jsonVals):
         config = self.connection.all()
-        oldBase_coin = config[1]['base_coin']
-        coin_query=Query()
-        self.connection.update(jsonVals,coin_query.base_coin==oldBase_coin)
+        gotdata = config[1] if len(config) > 1 else False
+        if  gotdata is False:
+            self.connection.insert(jsonVals)
+        else:
+            oldBase_coin = config[1]['base_coin']
+            coin_query=Query()
+            self.connection.update(jsonVals,coin_query.base_coin==oldBase_coin)
         return "Saved"
 
     def insertConfig(self,jsonVals):
         config = self.connection.all()
-        old_api_key = config[0]['api_key']
-        api_key_query=Query()
-        self.connection.update(jsonVals,api_key_query.api_key==old_api_key)
+        gotdata = config[0] if len(config) > 1 else False
+        if gotdata is False:
+            self.connection.insert(jsonVals)
+        else:
+            old_api_key = config[0]['api_key']
+            api_key_query=Query()
+            self.connection.update(jsonVals,api_key_query.api_key==old_api_key)
         return "Saved"
 
-
+    def recordExist(self):
+        rows=self.connection.all()
+        return rows
+        
     def searchConfig(self,val):
         find=Query()
         row=self.connection.search(find.api_key==val)

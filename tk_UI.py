@@ -76,6 +76,8 @@ class StartPage(tk.Frame):
         create_order_button=ttk.Button(self,text="Create Order",command=self.getVals)
         create_order_button.grid(row=3,column=3, padx = 10, pady = 10)
 
+        controller.bind('<Return>',lambda event=None:create_order_button.invoke())
+
         button1 = ttk.Button(self, text ="Api Configuration",
         command = lambda : controller.show_frame(Page1))
      
@@ -96,6 +98,7 @@ class StartPage(tk.Frame):
         currentResponse=str(self.balance_percent_value.get()) +"-"+self.pair_value.get()
         balance_percent=self.balance_percent_value.get()
         pair=self.pair_value.get()
+        
         kuCoinClient=KUCoin(balance_percent,pair)
         response=kuCoinClient.create_market_order()
 
